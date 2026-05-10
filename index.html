@@ -1,0 +1,1453 @@
+
+<!DOCTYPE html>
+<html lang="fr">
+
+<head>
+
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<title>Glory</title>
+
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+
+<style>
+
+*{
+margin:0;
+padding:0;
+box-sizing:border-box;
+font-family:Inter,sans-serif;
+}
+
+body{
+background:#050816;
+color:white;
+height:100vh;
+overflow:hidden;
+}
+
+button,input{
+border:none;
+outline:none;
+}
+
+/* AUTH */
+
+.auth{
+position:fixed;
+inset:0;
+display:flex;
+align-items:center;
+justify-content:center;
+background:#050816;
+z-index:9999;
+}
+
+.authCard{
+width:420px;
+background:#0f163f;
+padding:35px;
+border-radius:28px;
+display:flex;
+flex-direction:column;
+gap:14px;
+}
+
+.authTitle{
+font-size:56px;
+font-weight:800;
+text-align:center;
+background:linear-gradient(135deg,#7c6cff,#39c7ff);
+-webkit-background-clip:text;
+-webkit-text-fill-color:transparent;
+}
+
+.authTabs{
+display:flex;
+gap:10px;
+}
+
+.authTabs button{
+flex:1;
+height:52px;
+border-radius:14px;
+background:#1a2557;
+color:white;
+font-weight:700;
+cursor:pointer;
+}
+
+.authTabs .active{
+background:linear-gradient(135deg,#7c6cff,#39c7ff);
+}
+
+.auth input{
+height:58px;
+border-radius:16px;
+background:#18224f;
+padding:0 18px;
+color:white;
+font-size:16px;
+}
+
+.authAction{
+height:58px;
+border-radius:16px;
+background:linear-gradient(135deg,#7c6cff,#39c7ff);
+color:white;
+font-size:17px;
+font-weight:700;
+cursor:pointer;
+}
+
+/* APP */
+
+.app{
+display:none;
+height:100vh;
+}
+
+/* LEFT */
+
+.servers{
+width:82px;
+background:#091029;
+display:flex;
+flex-direction:column;
+align-items:center;
+padding:12px 0;
+gap:12px;
+border-right:1px solid rgba(255,255,255,.05);
+}
+
+.serverBtn{
+width:58px;
+height:58px;
+border-radius:18px;
+background:linear-gradient(135deg,#7c6cff,#39c7ff);
+display:flex;
+align-items:center;
+justify-content:center;
+font-size:24px;
+font-weight:800;
+cursor:pointer;
+overflow:hidden;
+transition:.2s;
+}
+
+.serverBtn:hover{
+transform:scale(1.05);
+}
+
+.serverBtn img{
+width:100%;
+height:100%;
+object-fit:cover;
+}
+
+/* SIDEBAR */
+
+.sidebar{
+width:300px;
+background:#0c1436;
+display:flex;
+flex-direction:column;
+border-right:1px solid rgba(255,255,255,.05);
+}
+
+.sidebarTop{
+height:70px;
+display:flex;
+align-items:center;
+padding:0 20px;
+font-size:24px;
+font-weight:800;
+border-bottom:1px solid rgba(255,255,255,.05);
+}
+
+.sidebarContent{
+flex:1;
+overflow:auto;
+padding:18px;
+}
+
+.section{
+margin-bottom:24px;
+}
+
+.sectionTitle{
+font-size:12px;
+font-weight:700;
+opacity:.6;
+margin-bottom:10px;
+}
+
+.item{
+height:46px;
+display:flex;
+align-items:center;
+padding:0 14px;
+border-radius:12px;
+cursor:pointer;
+transition:.2s;
+margin-bottom:6px;
+}
+
+.item:hover{
+background:#1b2558;
+}
+
+.item.active{
+background:#283371;
+}
+
+.voiceUser{
+margin-left:20px;
+display:flex;
+align-items:center;
+gap:10px;
+padding:6px 0;
+}
+
+.voiceAvatar{
+width:30px;
+height:30px;
+border-radius:50%;
+object-fit:cover;
+border:2px solid transparent;
+transition:.15s;
+}
+
+/* USER BAR */
+
+.userBar{
+height:82px;
+background:#101a45;
+display:flex;
+align-items:center;
+justify-content:space-between;
+padding:0 12px;
+border-top:1px solid rgba(255,255,255,.05);
+}
+
+.userInfo{
+display:flex;
+align-items:center;
+gap:10px;
+}
+
+.userInfo img{
+width:44px;
+height:44px;
+border-radius:50%;
+object-fit:cover;
+}
+
+.ctrls{
+display:flex;
+gap:8px;
+}
+
+.ctrl{
+width:40px;
+height:40px;
+border-radius:12px;
+background:#1d285e;
+color:white;
+cursor:pointer;
+}
+
+.ctrl.red{
+background:#ff4f7a;
+}
+
+/* MAIN */
+
+.main{
+flex:1;
+display:flex;
+flex-direction:column;
+background:#050816;
+}
+
+.chatTop{
+height:70px;
+display:flex;
+align-items:center;
+padding:0 25px;
+font-size:24px;
+font-weight:800;
+border-bottom:1px solid rgba(255,255,255,.05);
+}
+
+.messages{
+flex:1;
+overflow:auto;
+padding:20px;
+display:flex;
+flex-direction:column;
+gap:18px;
+}
+
+.msg{
+display:flex;
+gap:12px;
+}
+
+.msg img{
+width:42px;
+height:42px;
+border-radius:50%;
+object-fit:cover;
+}
+
+.msgName{
+font-weight:700;
+margin-bottom:4px;
+}
+
+.chatInput{
+padding:18px;
+display:flex;
+gap:12px;
+}
+
+.chatInput input{
+flex:1;
+height:56px;
+border-radius:18px;
+background:#111948;
+padding:0 18px;
+color:white;
+font-size:16px;
+}
+
+.chatInput button{
+width:68px;
+border-radius:18px;
+background:linear-gradient(135deg,#7c6cff,#39c7ff);
+color:white;
+font-size:24px;
+cursor:pointer;
+}
+
+/* RIGHT */
+
+.right{
+width:260px;
+background:#0c1436;
+border-left:1px solid rgba(255,255,255,.05);
+display:flex;
+flex-direction:column;
+}
+
+.banner{
+height:110px;
+background:linear-gradient(135deg,#7c6cff,#39c7ff);
+cursor:pointer;
+background-size:cover;
+background-position:center;
+}
+
+.profilePic{
+width:110px;
+height:110px;
+border-radius:50%;
+overflow:hidden;
+border:6px solid #0c1436;
+margin:-55px auto 0;
+cursor:pointer;
+}
+
+.profilePic img{
+width:100%;
+height:100%;
+object-fit:cover;
+}
+
+.profile{
+text-align:center;
+padding:10px;
+}
+
+.profile h2{
+font-size:30px;
+}
+
+.membersBox{
+flex:1;
+overflow:auto;
+padding:18px;
+}
+
+/* POPUP */
+
+.popupBg{
+position:fixed;
+inset:0;
+background:rgba(0,0,0,.6);
+display:none;
+align-items:center;
+justify-content:center;
+backdrop-filter:blur(8px);
+z-index:999;
+}
+
+.popup{
+width:420px;
+background:#111948;
+padding:28px;
+border-radius:28px;
+}
+
+.popupTop{
+display:flex;
+justify-content:space-between;
+align-items:center;
+margin-bottom:18px;
+}
+
+.popupTop h1{
+font-size:34px;
+}
+
+.close{
+font-size:28px;
+cursor:pointer;
+}
+
+.popup input{
+width:100%;
+height:56px;
+border-radius:16px;
+background:#1b2458;
+padding:0 16px;
+color:white;
+margin-bottom:12px;
+}
+
+.popup button{
+width:100%;
+height:56px;
+border-radius:16px;
+background:linear-gradient(135deg,#7c6cff,#39c7ff);
+color:white;
+font-size:16px;
+font-weight:700;
+cursor:pointer;
+margin-top:10px;
+}
+
+</style>
+
+</head>
+
+<body>
+
+<!-- AUTH -->
+
+<div class="auth" id="authScreen">
+
+<div class="authCard">
+
+<div class="authTitle">
+Glory
+</div>
+
+<div class="authTabs">
+
+<button class="active" id="loginBtn">
+Connexion
+</button>
+
+<button id="registerBtn">
+Créer un compte
+</button>
+
+</div>
+
+<input id="authUser" placeholder="Pseudo">
+
+<input id="authPass" type="password" placeholder="Mot de passe">
+
+<button class="authAction" id="submitBtn">
+Connexion
+</button>
+
+</div>
+
+</div>
+
+<!-- APP -->
+
+<div class="app" id="app">
+
+<div class="servers" id="servers">
+
+<div class="serverBtn" onclick="openHome()">
+G
+</div>
+
+<div class="serverBtn" onclick="openPopup('serverPopup')">
++
+</div>
+
+</div>
+
+<div class="sidebar">
+
+<div class="sidebarTop">
+
+<span id="sidebarTitle">
+Amis
+</span>
+
+<span
+id="settingsBtn"
+style="
+margin-left:auto;
+display:none;
+cursor:pointer;
+"
+onclick="openPopup('serverSettingsPopup')"
+>
+⚙️
+</span>
+
+</div>
+
+<div class="sidebarContent" id="sidebarContent"></div>
+
+<div class="userBar">
+
+<div class="userInfo">
+
+<img id="miniAvatar" src="https://i.imgur.com/8Km9tLL.png">
+
+<div>
+
+<div id="miniUsername">
+Glory
+</div>
+
+<div style="font-size:12px;opacity:.6;">
+En ligne
+</div>
+
+</div>
+
+</div>
+
+<div class="ctrls">
+
+<button class="ctrl" id="muteBtn" onclick="toggleMute()">
+🎤
+</button>
+
+<button class="ctrl" id="headBtn" onclick="toggleHeadset()">
+🎧
+</button>
+
+<button
+class="ctrl"
+id="leaveBtn"
+style="display:none"
+onclick="leaveVoice()"
+>
+📞
+</button>
+
+</div>
+
+</div>
+
+</div>
+
+<div class="main">
+
+<div class="chatTop" id="chatTitle">
+Bienvenue
+</div>
+
+<div class="messages" id="messages"></div>
+
+<div class="chatInput">
+
+<input id="messageInput" placeholder="Envoyer un message...">
+
+<button onclick="sendMessage()">
+➤
+</button>
+
+</div>
+
+</div>
+
+<div class="right">
+
+<div class="banner" id="banner"></div>
+
+<div
+class="profilePic"
+onclick="document.getElementById('pfpInput').click()"
+>
+
+<img
+id="profileAvatar"
+src="https://i.imgur.com/8Km9tLL.png"
+>
+
+</div>
+
+<div class="profile">
+
+<h2 id="profileUsername">
+Glory
+</h2>
+
+</div>
+
+<div class="membersBox" id="membersBox"></div>
+
+</div>
+
+</div>
+
+<!-- POPUPS -->
+
+<div class="popupBg" id="serverPopup">
+
+<div class="popup">
+
+<div class="popupTop">
+
+<h1>
+Créer un serveur
+</h1>
+
+<div class="close" onclick="closePopup('serverPopup')">
+✕
+</div>
+
+</div>
+
+<input id="serverName" placeholder="Nom du serveur">
+
+<button onclick="createServer()">
+Créer
+</button>
+
+</div>
+
+</div>
+
+<div class="popupBg" id="friendPopup">
+
+<div class="popup">
+
+<div class="popupTop">
+
+<h1>
+Ajouter un ami
+</h1>
+
+<div class="close" onclick="closePopup('friendPopup')">
+✕
+</div>
+
+</div>
+
+<input id="friendInput" placeholder="Pseudo">
+
+<button onclick="addFriend()">
+Ajouter
+</button>
+
+</div>
+
+</div>
+
+<div class="popupBg" id="serverSettingsPopup">
+
+<div class="popup">
+
+<div class="popupTop">
+
+<h1>
+Paramètres serveur
+</h1>
+
+<div
+class="close"
+onclick="closePopup('serverSettingsPopup')"
+>
+✕
+</div>
+
+</div>
+
+<button onclick="renameServer()">
+✏️ Renommer serveur
+</button>
+
+<button onclick="changeServerIcon()">
+🖼️ Changer icône serveur
+</button>
+
+<button
+style="background:#ff4f7a"
+onclick="deleteServer()"
+>
+🗑️ Supprimer serveur
+</button>
+
+</div>
+
+</div>
+
+<input type="file" id="pfpInput" hidden accept="image/*">
+<input type="file" id="serverIconInput" hidden accept="image/*">
+
+<script>
+
+let registerMode=false
+
+const users=
+JSON.parse(localStorage.getItem('glory_users')||'[]')
+
+const friends=[]
+const servers=[]
+
+let currentServer=null
+let currentChannel=null
+let joinedVoice=null
+
+let audioContext
+let analyser
+let microphone
+let dataArray
+let speakingLoop
+
+const loginBtn=document.getElementById('loginBtn')
+const registerBtn=document.getElementById('registerBtn')
+const submitBtn=document.getElementById('submitBtn')
+
+loginBtn.onclick=()=>{
+
+registerMode=false
+
+loginBtn.classList.add('active')
+registerBtn.classList.remove('active')
+
+submitBtn.innerText='Connexion'
+
+}
+
+registerBtn.onclick=()=>{
+
+registerMode=true
+
+registerBtn.classList.add('active')
+loginBtn.classList.remove('active')
+
+submitBtn.innerText='Créer un compte'
+
+}
+
+submitBtn.onclick=()=>{
+
+const user=
+document.getElementById('authUser').value.trim()
+
+const pass=
+document.getElementById('authPass').value.trim()
+
+if(!user||!pass)return
+
+if(registerMode){
+
+if(users.find(x=>x.user===user)){
+alert('Pseudo déjà utilisé')
+return
+}
+
+users.push({user,pass})
+
+localStorage.setItem(
+'glory_users',
+JSON.stringify(users)
+)
+
+alert('Compte créé')
+
+registerMode=false
+
+loginBtn.classList.add('active')
+registerBtn.classList.remove('active')
+
+submitBtn.innerText='Connexion'
+
+return
+
+}
+
+const account=users.find(
+x=>x.user===user&&x.pass===pass
+)
+
+if(!account){
+alert('Compte invalide')
+return
+}
+
+document.getElementById('authScreen')
+.style.display='none'
+
+document.getElementById('app')
+.style.display='flex'
+
+document.getElementById('profileUsername')
+.innerText=user
+
+document.getElementById('miniUsername')
+.innerText=user
+
+openHome()
+
+}
+
+function openHome(){
+
+currentServer=null
+
+document.getElementById('settingsBtn')
+.style.display='none'
+
+document.getElementById('sidebarTitle')
+.innerText='Amis'
+
+document.getElementById('chatTitle')
+.innerText='Messages privés'
+
+document.getElementById('messages')
+.innerHTML=''
+
+document.getElementById('membersBox')
+.innerHTML=''
+
+document.getElementById('sidebarContent')
+.innerHTML=`
+
+<div class="section">
+
+<div class="sectionTitle">
+SOCIAL
+</div>
+
+<div
+class="item"
+onclick="openPopup('friendPopup')"
+>
+➕ Ajouter un ami
+</div>
+
+</div>
+
+<div class="section">
+
+<div class="sectionTitle">
+AMIS
+</div>
+
+<div id="friendsList"></div>
+
+</div>
+
+`
+
+renderFriends()
+
+}
+
+function renderFriends(){
+
+const list=document.getElementById('friendsList')
+
+if(!list)return
+
+list.innerHTML=''
+
+friends.forEach(friend=>{
+
+list.innerHTML+=`
+
+<div class="item">
+💬 ${friend}
+</div>
+
+`
+
+})
+
+}
+
+function addFriend(){
+
+const value=
+document.getElementById('friendInput')
+.value.trim()
+
+if(!value)return
+
+if(friends.includes(value)){
+alert('Déjà ajouté')
+return
+}
+
+friends.push(value)
+
+document.getElementById('friendInput')
+.value=''
+
+closePopup('friendPopup')
+
+renderFriends()
+
+}
+
+function createServer(){
+
+const name=
+document.getElementById('serverName')
+.value.trim()
+
+if(!name)return
+
+const server={
+
+name,
+
+owner:
+document.getElementById('profileUsername')
+.innerText,
+
+textChannels:['général'],
+
+voiceChannels:['Vocal'],
+
+messages:{
+'général':[]
+},
+
+icon:null
+
+}
+
+servers.push(server)
+
+const icon=document.createElement('div')
+
+icon.className='serverBtn'
+
+icon.innerText=name[0].toUpperCase()
+
+icon.onclick=()=>openServer(server)
+
+server.element=icon
+
+document.getElementById('servers')
+.appendChild(icon)
+
+document.getElementById('serverName')
+.value=''
+
+closePopup('serverPopup')
+
+openServer(server)
+
+}
+
+function openServer(server){
+
+currentServer=server
+
+currentChannel='général'
+
+document.getElementById('settingsBtn')
+.style.display='block'
+
+document.getElementById('sidebarTitle')
+.innerText=server.name
+
+renderServer()
+
+switchChannel('général')
+
+renderMembers()
+
+}
+
+function renderServer(){
+
+let html=`
+
+<div class="section">
+
+<div class="sectionTitle">
+TEXTUELS
+</div>
+
+`
+
+currentServer.textChannels.forEach(ch=>{
+
+html+=`
+
+<div
+class="item ${currentChannel===ch?'active':''}"
+onclick="switchChannel('${ch}')"
+>
+# ${ch}
+</div>
+
+`
+
+})
+
+html+=`
+
+<div class="item" onclick="newTextChannel()">
+➕ Nouveau salon textuel
+</div>
+
+</div>
+
+<div class="section">
+
+<div class="sectionTitle">
+VOCAUX
+</div>
+
+`
+
+currentServer.voiceChannels.forEach(vc=>{
+
+html+=`
+
+<div
+class="item"
+onclick="joinVoice('${vc}')"
+>
+🔊 ${vc}
+</div>
+
+<div id="voice_${vc}"></div>
+
+`
+
+})
+
+html+=`
+
+<div class="item" onclick="newVoiceChannel()">
+➕ Nouveau salon vocal
+</div>
+
+</div>
+
+`
+
+document.getElementById('sidebarContent')
+.innerHTML=html
+
+}
+
+function switchChannel(name){
+
+currentChannel=name
+
+document.getElementById('chatTitle')
+.innerText='# '+name
+
+renderMessages()
+
+renderServer()
+
+}
+
+function renderMessages(){
+
+const box=document.getElementById('messages')
+
+box.innerHTML=''
+
+currentServer.messages[currentChannel]
+.forEach(msg=>{
+
+box.innerHTML+=`
+
+<div class="msg">
+
+<img
+src="${document.getElementById('profileAvatar').src}"
+>
+
+<div>
+
+<div class="msgName">
+${document.getElementById('profileUsername').innerText}
+</div>
+
+<div>
+${msg}
+</div>
+
+</div>
+
+</div>
+
+`
+
+})
+
+}
+
+function sendMessage(){
+
+if(!currentServer)return
+
+const input=
+document.getElementById('messageInput')
+
+const text=input.value.trim()
+
+if(!text)return
+
+currentServer.messages[currentChannel]
+.push(text)
+
+input.value=''
+
+renderMessages()
+
+}
+
+function newTextChannel(){
+
+const name=prompt('Nom salon')
+
+if(!name)return
+
+currentServer.textChannels.push(name)
+
+currentServer.messages[name]=[]
+
+renderServer()
+
+}
+
+function newVoiceChannel(){
+
+const name=prompt('Nom vocal')
+
+if(!name)return
+
+currentServer.voiceChannels.push(name)
+
+renderServer()
+
+}
+
+async function joinVoice(name){
+
+if(joinedVoice===name)return
+
+try{
+
+const stream=
+await navigator.mediaDevices.getUserMedia({
+audio:true
+})
+
+audioContext=new AudioContext()
+
+analyser=audioContext.createAnalyser()
+
+microphone=
+audioContext.createMediaStreamSource(stream)
+
+microphone.connect(analyser)
+
+analyser.fftSize=256
+
+const bufferLength=
+analyser.frequencyBinCount
+
+dataArray=
+new Uint8Array(bufferLength)
+
+}catch(err){
+
+alert('Micro refusé')
+
+return
+
+}
+
+joinedVoice=name
+
+document.getElementById('leaveBtn')
+.style.display='block'
+
+document
+.querySelectorAll('[id^="voice_"]')
+.forEach(x=>x.innerHTML='')
+
+document.getElementById('voice_'+name)
+.innerHTML=`
+
+<div class="voiceUser">
+
+<img
+class="voiceAvatar"
+id="voiceAvatar"
+src="${document.getElementById('profileAvatar').src}"
+>
+
+<div>
+${document.getElementById('profileUsername').innerText}
+</div>
+
+</div>
+
+`
+
+const avatar=
+document.getElementById('voiceAvatar')
+
+function detectVoice(){
+
+if(!joinedVoice)return
+
+analyser.getByteFrequencyData(dataArray)
+
+let values=0
+
+for(let i=0;i<dataArray.length;i++){
+
+values+=dataArray[i]
+
+}
+
+let average=values/dataArray.length
+
+if(average>18){
+
+avatar.style.border=
+'2px solid #35ff88'
+
+avatar.style.boxShadow=
+'0 0 18px #35ff88'
+
+}else{
+
+avatar.style.border=
+'2px solid transparent'
+
+avatar.style.boxShadow='none'
+
+}
+
+speakingLoop=
+requestAnimationFrame(detectVoice)
+
+}
+
+detectVoice()
+
+}
+
+function leaveVoice(){
+
+joinedVoice=null
+
+cancelAnimationFrame(speakingLoop)
+
+document.getElementById('leaveBtn')
+.style.display='none'
+
+document
+.querySelectorAll('[id^="voice_"]')
+.forEach(x=>x.innerHTML='')
+
+}
+
+function renderMembers(){
+
+document.getElementById('membersBox')
+.innerHTML=`
+
+<div style="
+display:flex;
+align-items:center;
+gap:10px;
+">
+
+<img
+src="${document.getElementById('profileAvatar').src}"
+style="
+width:42px;
+height:42px;
+border-radius:50%;
+object-fit:cover;
+"
+>
+
+<div>
+${document.getElementById('profileUsername').innerText}
+</div>
+
+</div>
+
+`
+
+}
+
+function renameServer(){
+
+const name=
+prompt('Nouveau nom serveur')
+
+if(!name)return
+
+currentServer.name=name
+
+document.getElementById('sidebarTitle')
+.innerText=name
+
+closePopup('serverSettingsPopup')
+
+}
+
+function changeServerIcon(){
+
+document.getElementById(
+'serverIconInput'
+).click()
+
+}
+
+document.getElementById(
+'serverIconInput'
+).onchange=e=>{
+
+const file=e.target.files[0]
+
+if(!file)return
+
+const url=URL.createObjectURL(file)
+
+currentServer.element.innerHTML=`
+<img src="${url}">
+`
+
+closePopup('serverSettingsPopup')
+
+}
+
+function deleteServer(){
+
+if(confirm('Supprimer serveur ?')){
+
+currentServer.element.remove()
+
+openHome()
+
+closePopup('serverSettingsPopup')
+
+}
+
+}
+
+function toggleMute(){
+
+document.getElementById('muteBtn')
+.classList.toggle('red')
+
+}
+
+function toggleHeadset(){
+
+document.getElementById('headBtn')
+.classList.toggle('red')
+
+}
+
+function openPopup(id){
+
+document.getElementById(id)
+.style.display='flex'
+
+}
+
+function closePopup(id){
+
+document.getElementById(id)
+.style.display='none'
+
+}
+
+document.getElementById('pfpInput')
+.onchange=e=>{
+
+const file=e.target.files[0]
+
+if(!file)return
+
+const url=URL.createObjectURL(file)
+
+document.getElementById('profileAvatar')
+.src=url
+
+document.getElementById('miniAvatar')
+.src=url
+
+}
+
+document.getElementById('banner')
+.onclick=()=>{
+
+const input=document.createElement('input')
+
+input.type='file'
+
+input.accept='image/*'
+
+input.onchange=e=>{
+
+const file=e.target.files[0]
+
+if(!file)return
+
+const url=URL.createObjectURL(file)
+
+const banner=
+document.getElementById('banner')
+
+banner.style.backgroundImage=
+`url(${url})`
+
+}
+
+input.click()
+
+}
+
+</script>
+
+<script type="module" src="Glory/firebase.js"></script>
+
+</body>
+
+</html>
